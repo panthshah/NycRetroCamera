@@ -26,25 +26,9 @@ export default function MobileOverlay() {
         >
           New York Street Press
         </h1>
-        <div className="w-24 h-24 mx-auto mb-6 bg-[#2C1810] rounded-full flex items-center justify-center">
-          <svg className="w-12 h-12 text-[#F5F0E6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-        </div>
-        <h2 
-          className="text-2xl font-bold text-[#2C1810] mb-4"
-          style={{ fontFamily: 'var(--font-playfair), serif' }}
-        >
-          Desktop Experience Only
-        </h2>
-        <p className="text-[#8B7355] text-lg leading-relaxed" style={{ fontFamily: 'var(--font-garamond), serif' }}>
-          For the authentic vintage camera experience and newspaper layout, please visit us on a desktop or laptop computer.
+        <p className="text-[#8B7355] text-xl leading-relaxed font-medium" style={{ fontFamily: 'var(--font-garamond), serif' }}>
+          For better experience view it on desktop
         </p>
-        <div className="mt-8 pt-8 border-t border-[#8B7355]/30">
-          <p className="text-[#8B7355] text-sm italic">
-            screen width must be &gt; 768px
-          </p>
-        </div>
       </div>
     </div>
   );
