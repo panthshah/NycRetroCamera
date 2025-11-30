@@ -53,7 +53,7 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
             <div className="flex items-center justify-between">
               {/* USA Stamp */}
               <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 relative flex-shrink-0">
-                <Image src={USAStamp} alt="USA" fill />
+                <Image src={USAStamp} alt="USA" fill className="object-contain" />
               </div>
               
               {/* Main Title */}
@@ -66,7 +66,7 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
               
               {/* NY Stamp */}
               <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 relative flex-shrink-0">
-                <Image src={NYStamp} alt="New York" fill/>
+                <Image src={NYStamp} alt="New York" fill className="object-contain" />
               </div>
             </div>
 
