@@ -8,25 +8,31 @@ import ExportButton from '@/components/ExportButton';
 
 export default function PrintPage() {
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
-  const [photoDate, setPhotoDate] = useState<Date>(new Date());
+  const [isClient, setIsClient] = useState(false);
   const newspaperRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
+    setIsClient(true);
     // Get photo from sessionStorage
     const storedPhoto = sessionStorage.getItem('capturedPhoto');
-    const storedDate = sessionStorage.getItem('photoDate');
     
     if (storedPhoto) {
       setPhotoUrl(storedPhoto);
-      if (storedDate) {
-        setPhotoDate(new Date(storedDate));
-      }
     } else {
       // No photo, redirect back to home
       router.push('/');
     }
   }, [router]);
+
+  // Don't render until client-side hydration is complete
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-[#1a1a1a] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#F5F0E6] border-t-transparent"></div>
+      </div>
+    );
+  }
 
   const handleNewPhoto = () => {
     sessionStorage.removeItem('capturedPhoto');
@@ -93,7 +99,6 @@ export default function PrintPage() {
               <NewspaperTemplate 
                 ref={newspaperRef} 
                 photoUrl={photoUrl} 
-                photoDate={photoDate}
               />
             </div>
           </div>

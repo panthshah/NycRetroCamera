@@ -13,7 +13,6 @@ import NYStamp from './newyorkstamp.png';
 
 interface NewspaperTemplateProps {
   photoUrl: string | null;
-  photoDate?: Date;
 }
 
 const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
@@ -50,7 +49,7 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
           {/* ============ HEADER ============ */}
           <header className="text-center mb-1">
             {/* Title row with stamps */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between py-4 md:py-6">
               {/* USA Stamp */}
               <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 relative flex-shrink-0">
                 <Image src={USAStamp} alt="USA" fill className="object-contain" />
@@ -254,7 +253,7 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
             </div>
 
             {/* ============ COLUMN 2 (RIGHT - SIDEBAR) ============ */}
-            <div className="border-t md:border-t-0 md:border-l border-black pt-4 md:pt-0 md:pl-4">
+            <div className="border-t md:border-t-0 md:border-l border-black pt-4 md:pt-0 md:pl-4 md:pr-2">
               {/* Morning on Manhattan */}
               <h3 
                 className="text-[11px] font-bold uppercase tracking-wide border-b-2 border-black pb-1 mb-2 text-center"

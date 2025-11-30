@@ -105,23 +105,8 @@ export default function Home() {
         </Suspense>
       </div>
 
-      {/* Instructions */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-center z-10 w-full px-4"
-      >
-        <p className="text-[#5C4A3A] text-xs sm:text-sm mb-3 sm:mb-4 hidden sm:block">
-          Click the <span className="text-red-500 font-semibold">red button</span> on the camera to take a photo
-        </p>
-        <button
-          onClick={handleCameraCapture}
-          className="px-6 sm:px-8 py-2.5 sm:py-3 bg-[#2C1810] hover:bg-[#1a0f0a] text-white rounded-full transition-all font-medium shadow-lg hover:shadow-xl text-sm sm:text-base"
-        >
-          📸 Take Photo or Upload
-        </button>
-      </motion.div>
+      {/* Instructions - Removed as requested, camera is interactive */}
+
 
       {/* Flash overlay */}
       <AnimatePresence>
