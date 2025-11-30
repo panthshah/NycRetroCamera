@@ -50,42 +50,42 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
           {/* ============ HEADER ============ */}
           <header className="text-center mb-1">
             {/* Title row with stamps */}
-            <div className="flex items-center justify-between -my-2 sm:-my-4">
+            <div className="flex items-center justify-between">
               {/* USA Stamp */}
-              <div className="w-20 h-20 sm:w-32 sm:h-32 md:w-48 md:h-48 relative flex-shrink-0">
-                <Image src={USAStamp} alt="USA" fill className="object-contain" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 relative flex-shrink-0">
+                <Image src={USAStamp} alt="USA" fill />
               </div>
               
               {/* Main Title */}
               <h1 
-                className="text-[24px] sm:text-[36px] md:text-[52px] leading-none tracking-tight flex-1 px-2 sm:px-4"
+                className="text-[22px] sm:text-[32px] md:text-[48px] leading-none tracking-tight flex-1 px-1 sm:px-2"
                 style={{ fontFamily: 'Chomsky, "Old English Text MT", serif' }}
               >
                 New York Street.Press
               </h1>
               
               {/* NY Stamp */}
-              <div className="w-20 h-20 sm:w-32 sm:h-32 md:w-48 md:h-48 relative flex-shrink-0">
-                <Image src={NYStamp} alt="New York" fill className="object-contain" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 relative flex-shrink-0">
+                <Image src={NYStamp} alt="New York" fill/>
               </div>
             </div>
 
             {/* Double line separator */}
-            <div className="mt-1 mb-1">
+            <div className="-mt-2 sm:-mt-3 md:-mt-4 mb-0">
               <div className="h-[2px] bg-black"></div>
               <div className="h-[1px] bg-black mt-[2px]"></div>
             </div>
 
             {/* Main Headline */}
             <h2 
-              className="text-[12px] sm:text-[16px] md:text-[20px] font-bold tracking-[0.1em] sm:tracking-[0.15em] leading-tight py-1"
+              className="text-[12px] sm:text-[16px] md:text-[20px] font-bold tracking-[0.1em] sm:tracking-[0.15em] leading-tight py-0.5"
               style={{ fontFamily: 'var(--font-garamond), "EB Garamond", Georgia, serif' }}
             >
               WANTED ON THESE STREETS: NEW YORK FACES
             </h2>
 
             {/* Bottom line */}
-            <div className="mt-1">
+            <div className="mt-0">
               <div className="h-[1px] bg-black"></div>
               <div className="h-[2px] bg-black mt-[2px]"></div>
             </div>
