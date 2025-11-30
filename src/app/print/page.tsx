@@ -48,11 +48,11 @@ export default function PrintPage() {
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-[#1a1612] px-6 py-4 flex items-center justify-between border-b border-[#3d3530]"
+        className="bg-[#1a1612] px-3 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-[#3d3530]"
       >
-        <div>
+        <div className="text-center sm:text-left">
           <h1 
-            className="text-2xl text-[#F5F0E6]"
+            className="text-xl sm:text-2xl text-[#F5F0E6]"
             style={{ fontFamily: 'Chomsky, serif' }}
           >
             New York Street Press
@@ -60,10 +60,10 @@ export default function PrintPage() {
           <p className="text-[#8B7355] text-xs">Your vintage print is ready!</p>
         </div>
         
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3">
           <button
             onClick={handleNewPhoto}
-            className="px-5 py-2 bg-transparent border border-[#8B7355] text-[#F5F0E6] rounded-full text-sm hover:bg-[#8B7355]/20 transition-all"
+            className="px-3 sm:px-5 py-2 bg-transparent border border-[#8B7355] text-[#F5F0E6] rounded-full text-xs sm:text-sm hover:bg-[#8B7355]/20 transition-all"
           >
             ← Take Another
           </button>
@@ -72,12 +72,12 @@ export default function PrintPage() {
       </motion.header>
 
       {/* Print Container - Viewport Fitted */}
-      <div className="flex-1 flex items-center justify-center p-6 overflow-hidden">
+      <div className="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-hidden">
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full max-w-[900px] h-[calc(100vh-120px)] relative"
+          className="w-full max-w-[900px] h-[calc(100vh-140px)] sm:h-[calc(100vh-120px)] relative"
           style={{
             boxShadow: '0 25px 80px rgba(0, 0, 0, 0.5), 0 10px 30px rgba(0, 0, 0, 0.3)',
           }}
@@ -89,7 +89,7 @@ export default function PrintPage() {
               backgroundColor: '#E8E0D0',
             }}
           >
-            <div className="transform origin-top scale-[0.85] md:scale-100">
+            <div className="transform origin-top scale-[0.5] sm:scale-[0.7] md:scale-[0.85] lg:scale-100">
               <NewspaperTemplate 
                 ref={newspaperRef} 
                 photoUrl={photoUrl} 

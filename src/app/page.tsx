@@ -60,11 +60,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#F5F0E6] relative overflow-hidden">
-      {/* Subtle texture overlay */}
+      {/* Subtle warm texture overlay */}
       <div 
-        className="absolute inset-0 opacity-30 pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          background: `
+            radial-gradient(ellipse at 30% 20%, rgba(139, 115, 85, 0.06) 0%, transparent 50%),
+            radial-gradient(ellipse at 70% 80%, rgba(139, 115, 85, 0.04) 0%, transparent 50%)
+          `,
         }}
       />
 
@@ -72,11 +75,11 @@ export default function Home() {
       <div className="absolute inset-0 bg-gradient-to-br from-[#F5F0E6] via-[#EDE5D8] to-[#E8DFD0]" />
 
       {/* Header */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 z-10 text-center">
+      <div className="absolute top-4 sm:top-8 left-1/2 -translate-x-1/2 z-10 text-center w-full px-4">
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl font-bold text-[#2C1810] tracking-tight"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#2C1810] tracking-tight"
           style={{ fontFamily: 'Chomsky, serif' }}
         >
           New York Street Press
@@ -85,7 +88,7 @@ export default function Home() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-[#8B7355] text-sm mt-2"
+          className="text-[#8B7355] text-xs sm:text-sm mt-1 sm:mt-2"
         >
           Capture moments in vintage newspaper style
         </motion.p>
@@ -107,14 +110,14 @@ export default function Home() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center z-10"
+        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-center z-10 w-full px-4"
       >
-        <p className="text-[#5C4A3A] text-sm mb-4">
+        <p className="text-[#5C4A3A] text-xs sm:text-sm mb-3 sm:mb-4 hidden sm:block">
           Click the <span className="text-red-500 font-semibold">red button</span> on the camera to take a photo
         </p>
         <button
           onClick={handleCameraCapture}
-          className="px-8 py-3 bg-[#2C1810] hover:bg-[#1a0f0a] text-white rounded-full transition-all font-medium shadow-lg hover:shadow-xl"
+          className="px-6 sm:px-8 py-2.5 sm:py-3 bg-[#2C1810] hover:bg-[#1a0f0a] text-white rounded-full transition-all font-medium shadow-lg hover:shadow-xl text-sm sm:text-base"
         >
           📸 Take Photo or Upload
         </button>

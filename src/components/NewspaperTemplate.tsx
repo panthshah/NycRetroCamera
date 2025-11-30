@@ -17,7 +17,7 @@ interface NewspaperTemplateProps {
 }
 
 const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
-  ({ photoUrl, photoDate = new Date() }, ref) => {
+  ({ photoUrl }, ref) => {
 
     return (
       <div
@@ -27,34 +27,45 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
           fontFamily: 'Georgia, "Times New Roman", serif',
         }}
       >
-        {/* Paper texture overlay */}
+        {/* Vintage paper texture - warm aged look */}
         <div 
-          className="absolute inset-0 pointer-events-none opacity-[0.04]"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            background: `
+              radial-gradient(ellipse at 20% 20%, rgba(139, 115, 85, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 80%, rgba(139, 115, 85, 0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, rgba(160, 140, 110, 0.04) 0%, transparent 70%)
+            `,
+          }}
+        />
+        {/* Subtle edge darkening for aged paper effect */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            boxShadow: 'inset 0 0 100px rgba(139, 115, 85, 0.15)',
           }}
         />
 
-        <div className="relative px-2 py-2">
+        <div className="relative px-2 sm:px-3 py-2">
           {/* ============ HEADER ============ */}
           <header className="text-center mb-1">
             {/* Title row with stamps */}
-            <div className="flex items-center justify-between -my-4">
+            <div className="flex items-center justify-between -my-2 sm:-my-4">
               {/* USA Stamp */}
-              <div className="w-48 h-48 relative flex-shrink-0">
+              <div className="w-20 h-20 sm:w-32 sm:h-32 md:w-48 md:h-48 relative flex-shrink-0">
                 <Image src={USAStamp} alt="USA" fill className="object-contain" />
               </div>
               
               {/* Main Title */}
               <h1 
-                className="text-[52px] leading-none tracking-tight flex-1 px-4"
+                className="text-[24px] sm:text-[36px] md:text-[52px] leading-none tracking-tight flex-1 px-2 sm:px-4"
                 style={{ fontFamily: 'Chomsky, "Old English Text MT", serif' }}
               >
                 New York Street.Press
               </h1>
               
               {/* NY Stamp */}
-              <div className="w-48 h-48 relative flex-shrink-0">
+              <div className="w-20 h-20 sm:w-32 sm:h-32 md:w-48 md:h-48 relative flex-shrink-0">
                 <Image src={NYStamp} alt="New York" fill className="object-contain" />
               </div>
             </div>
@@ -67,7 +78,7 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
 
             {/* Main Headline */}
             <h2 
-              className="text-[20px] font-bold tracking-[0.15em] leading-tight py-1"
+              className="text-[12px] sm:text-[16px] md:text-[20px] font-bold tracking-[0.1em] sm:tracking-[0.15em] leading-tight py-1"
               style={{ fontFamily: 'var(--font-garamond), "EB Garamond", Georgia, serif' }}
             >
               WANTED ON THESE STREETS: NEW YORK FACES
@@ -81,7 +92,7 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
           </header>
 
           {/* ============ MAIN 2-COLUMN LAYOUT ============ */}
-          <div className="grid grid-cols-[1fr_280px] gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-4 md:gap-2">
             
             {/* ============ COLUMN 1 (LEFT - MAIN) ============ */}
             <div>
@@ -89,21 +100,13 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
               <div className="mb-3">
                 <div className="w-full aspect-[16/10] relative bg-[#F5F0E6] overflow-hidden">
                   {photoUrl ? (
-                    <>
-                      <Image
-                        src={photoUrl}
-                        alt="Featured photograph"
-                        fill
-                        className="object-cover grayscale contrast-110 brightness-105"
-                        unoptimized
-                      />
-                      <div 
-                        className="absolute inset-0 mix-blend-overlay opacity-5"
-                        style={{
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")`
-                        }}
-                      />
-                    </>
+                    <Image
+                      src={photoUrl}
+                      alt="Featured photograph"
+                      fill
+                      className="object-cover grayscale contrast-[0.9] brightness-[0.95]"
+                      unoptimized
+                    />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <span className="text-[#8B7355] italic text-sm">Your Photo Here</span>
@@ -116,10 +119,10 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
               </div>
 
               {/* ROW 2: Three sub-columns */}
-              <div className="grid grid-cols-3 gap-4 border-t border-black pt-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 border-t border-black pt-3">
                 
                 {/* SUB-COL 1: Alexander Hamilton */}
-                <div className="border-r border-[#c5b8a8] pr-3">
+                <div className="border-b sm:border-b-0 sm:border-r border-[#c5b8a8] pb-3 sm:pb-0 sm:pr-3">
                   <h3 
                     className="text-[10px] font-bold uppercase text-center border-b border-black pb-2 mb-3"
                     style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
@@ -160,7 +163,7 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
                 </div>
 
                 {/* SUB-COL 2: Skyscrapers & Architecture */}
-                <div className="border-r border-[#c5b8a8] pr-3">
+                <div className="border-b md:border-b-0 md:border-r border-[#c5b8a8] pb-3 md:pb-0 md:pr-3">
                   <h3 
                     className="text-[10px] font-bold uppercase border-b border-black pb-1 mb-2"
                     style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
@@ -251,7 +254,7 @@ const NewspaperTemplate = forwardRef<HTMLDivElement, NewspaperTemplateProps>(
             </div>
 
             {/* ============ COLUMN 2 (RIGHT - SIDEBAR) ============ */}
-            <div className="border-l border-black pl-4">
+            <div className="border-t md:border-t-0 md:border-l border-black pt-4 md:pt-0 md:pl-4">
               {/* Morning on Manhattan */}
               <h3 
                 className="text-[11px] font-bold uppercase tracking-wide border-b-2 border-black pb-1 mb-2 text-center"
