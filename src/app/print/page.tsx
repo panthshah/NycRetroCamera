@@ -54,7 +54,7 @@ export default function PrintPage() {
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-[#1a1612] px-3 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-[#3d3530]"
+        className="bg-[#1a1612] px-3 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-[#3d3530] relative z-50"
       >
         <div className="text-center sm:text-left">
           <h1 

@@ -95,17 +95,31 @@ export default function Home() {
       </div>
 
       {/* Camera - Centered */}
-      <div className="w-full h-screen flex items-center justify-center relative z-10">
-        <Suspense fallback={
-          <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#8B7355] border-t-transparent"></div>
-          </div>
-        }>
-          <PolaroidCamera onCapture={handleCameraCapture} isCapturing={isCapturing} />
-        </Suspense>
+      <div className="w-full h-screen flex flex-col items-center justify-center relative z-32">
+        <div className="relative">
+          <Suspense fallback={
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#8B7355] border-t-transparent"></div>
+            </div>
+          }>
+            <PolaroidCamera onCapture={handleCameraCapture} isCapturing={isCapturing} />
+          </Suspense>
+        </div>
+
+        {/* Instructions - Just below camera */}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 text-center z-8"
+        >
+          <p className="text-[#5C4A3A] text-sm font-medium tracking-wide bg-[#F5F0E6]/80 px-4 py-2 rounded-full backdrop-blur-sm inline-block shadow-sm">
+            Click the <span className="text-red-600 font-bold mx-1">red button</span> to capture or upload
+          </p>
+        </motion.div>
       </div>
 
-      {/* Instructions - Removed as requested, camera is interactive */}
+      {/* Removed absolute positioned instructions */}
 
 
       {/* Flash overlay */}
