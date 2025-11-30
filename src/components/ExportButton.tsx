@@ -74,10 +74,10 @@ export default function ExportButton({ targetRef, disabled }: ExportButtonProps)
       {/* Export options dropdown */}
       {showOptions && !disabled && (
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="absolute top-full left-0 mt-2 bg-gray-800 rounded-xl shadow-xl border border-gray-700 overflow-hidden z-10 min-w-[180px]"
+          exit={{ opacity: 0, y: 10 }}
+          className="absolute bottom-full right-0 mb-2 bg-gray-800 rounded-xl shadow-xl border border-gray-700 overflow-hidden z-50 min-w-[180px]"
         >
           <button
             onClick={() => handleExport('png')}
