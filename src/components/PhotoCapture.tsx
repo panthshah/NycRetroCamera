@@ -13,15 +13,31 @@ export default function PhotoCapture({ onPhotoCapture, onClose, isOpen }: PhotoC
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [stream, setStream] = useState<MediaStream | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [flash, setFlash] = useState(false);
 
+  const stopCamera = useCallback(() => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+      setIsCameraReady(false);
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+  }, []);
+
   const startCamera = useCallback(async () => {
+    // Don't start if already running
+    if (streamRef.current) return;
+    
     try {
       setError(null);
+      setIsCameraReady(false);
+      
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: { 
           facingMode: 'user',
@@ -31,10 +47,15 @@ export default function PhotoCapture({ onPhotoCapture, onClose, isOpen }: PhotoC
         audio: false
       });
       
+      // Store in ref to avoid dependency issues
+      streamRef.current = mediaStream;
+      
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
-        setStream(mediaStream);
-        setIsCameraReady(true);
+        // Wait for video to be ready
+        videoRef.current.onloadedmetadata = () => {
+          setIsCameraReady(true);
+        };
       }
     } catch (err) {
       console.error('Camera error:', err);
@@ -42,19 +63,13 @@ export default function PhotoCapture({ onPhotoCapture, onClose, isOpen }: PhotoC
     }
   }, []);
 
-  const stopCamera = useCallback(() => {
-    if (stream) {
-      stream.getTracks().forEach(track => track.stop());
-      setStream(null);
-      setIsCameraReady(false);
-    }
-  }, [stream]);
-
   useEffect(() => {
     if (isOpen) {
       startCamera();
     } else {
       stopCamera();
+      setCountdown(null);
+      setFlash(false);
     }
     
     return () => {
@@ -63,6 +78,8 @@ export default function PhotoCapture({ onPhotoCapture, onClose, isOpen }: PhotoC
   }, [isOpen, startCamera, stopCamera]);
 
   const capturePhoto = useCallback(() => {
+    if (!isCameraReady || countdown !== null) return;
+    
     // Start countdown
     setCountdown(3);
     
@@ -76,8 +93,8 @@ export default function PhotoCapture({ onPhotoCapture, onClose, isOpen }: PhotoC
             const video = videoRef.current;
             const canvas = canvasRef.current;
             
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
+            canvas.width = video.videoWidth || 1280;
+            canvas.height = video.videoHeight || 720;
             
             const ctx = canvas.getContext('2d');
             if (ctx) {
@@ -93,9 +110,11 @@ export default function PhotoCapture({ onPhotoCapture, onClose, isOpen }: PhotoC
               // Get the image
               const photoUrl = canvas.toDataURL('image/jpeg', 0.9);
               
+              // Stop camera before navigating
+              stopCamera();
+              
               setTimeout(() => {
                 onPhotoCapture(photoUrl);
-                onClose();
               }, 500);
             }
           }
@@ -105,22 +124,27 @@ export default function PhotoCapture({ onPhotoCapture, onClose, isOpen }: PhotoC
         return prev - 1;
       });
     }, 1000);
-  }, [onPhotoCapture, onClose]);
+  }, [onPhotoCapture, isCameraReady, countdown, stopCamera]);
 
   const handleFileUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      // Stop camera immediately when uploading
+      stopCamera();
+      
       const reader = new FileReader();
       reader.onload = (e) => {
         const result = e.target?.result;
         if (typeof result === 'string') {
           onPhotoCapture(result);
-          onClose();
         }
+      };
+      reader.onerror = () => {
+        setError('Failed to read the file. Please try again.');
       };
       reader.readAsDataURL(file);
     }
-  }, [onPhotoCapture, onClose]);
+  }, [onPhotoCapture, stopCamera]);
 
   return (
     <AnimatePresence>
