@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Playfair_Display, UnifrakturMaguntia, EB_Garamond } from "next/font/google";
 import "./globals.css";
+import MobileOverlay from "@/components/MobileOverlay";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${unifraktur.variable} ${garamond.variable} antialiased`}
       >
+        <MobileOverlay />
         {children}
       </body>
     </html>
